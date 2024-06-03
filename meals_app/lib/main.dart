@@ -1,4 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'package:meals_app/screens/categories.dart';
+
+final ThemeData theme = ThemeData(
+  useMaterial3: true,
+  colorScheme: ColorScheme.fromSeed(
+    seedColor: const Color.fromARGB(255, 131, 57, 0),
+    brightness: Brightness.dark,
+  ),
+  textTheme: GoogleFonts.latoTextTheme(),
+);
 
 void main() {
   runApp(const MainApp());
@@ -9,12 +21,9 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
-    );
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: theme,
+        home: const categories_screen());
   }
 }
