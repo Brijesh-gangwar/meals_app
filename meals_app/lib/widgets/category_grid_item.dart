@@ -19,7 +19,7 @@ class category_grid_item extends StatelessWidget {
       splashColor: Theme.of(context).primaryColor,
       onTap: onselectcategory,
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             gradient: LinearGradient(

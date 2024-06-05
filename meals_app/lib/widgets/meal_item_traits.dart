@@ -17,12 +17,12 @@ class meal_item_traits extends StatelessWidget {
           icon,
           color: Colors.white,
         ),
-        SizedBox(
+        const SizedBox(
           height: 12,
         ),
         Text(
           label,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
           ),
         )

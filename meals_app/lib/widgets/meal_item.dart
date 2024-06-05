@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:meals_app/widgets/meal_item_traits.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:meals_app/models/meal.dart';
 
 class meal_item extends StatelessWidget {
-  const meal_item({super.key, required this.meal});
+  const meal_item({super.key, required this.meal, required this.onselect_meal});
   final Meal meal;
 
+  final void Function(Meal meal) onselect_meal;
   String get ComplexityText {
     return meal.complexity.name[0].toUpperCase() +
         meal.complexity.name.substring(1);
@@ -21,14 +22,16 @@ class meal_item extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(8),
+      margin: const EdgeInsets.all(8),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
       clipBehavior: Clip.hardEdge,
       elevation: 4,
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          onselect_meal(meal);
+        },
         child: Stack(
           children: [
             FadeInImage(
@@ -73,13 +76,12 @@ class meal_item extends StatelessWidget {
                           width: 12,
                         ),
                         meal_item_traits(
-                            icon: Icons.work, label: '$ComplexityText'),
+                            icon: Icons.work, label: ComplexityText),
                         const SizedBox(
                           width: 12,
                         ),
                         meal_item_traits(
-                            icon: Icons.attach_money,
-                            label: Affordabilitytext),
+                            icon: Icons.attach_money, label: Affordabilitytext),
                       ],
                     )
                   ],
