@@ -25,7 +25,18 @@ class _categories_screenState extends State<categories_screen>
 
     animationController = AnimationController(
       vsync: this,
+      duration: Duration(milliseconds: 300),
+      lowerBound: 0,
+      upperBound: 1,
     );
+
+    animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
   }
 
   void _selectcategory(BuildContext context, Category category) {
@@ -46,23 +57,37 @@ class _categories_screenState extends State<categories_screen>
 
   @override
   Widget build(BuildContext context) {
-    return GridView(
-      padding: const EdgeInsets.all(16),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 3 / 2,
-        crossAxisSpacing: 20,
-        mainAxisSpacing: 20,
-      ),
-      children: [
-        for (final category in availableCategories)
-          category_grid_item(
-            category: category,
-            onselectcategory: () {
-              _selectcategory(context, category);
-            },
-          )
-      ],
-    );
+    return AnimatedBuilder(
+        animation: animationController,
+        child: GridView(
+          padding: const EdgeInsets.all(16),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 3 / 2,
+            crossAxisSpacing: 20,
+            mainAxisSpacing: 20,
+          ),
+          children: [
+            for (final category in availableCategories)
+              category_grid_item(
+                category: category,
+                onselectcategory: () {
+                  _selectcategory(context, category);
+                },
+              )
+          ],
+        ),
+        builder: (context, child) => SlideTransition(
+              position: Tween(
+                begin: const Offset(0, 0.3),
+                end: const Offset(0, 0),
+              ).animate(
+                CurvedAnimation(
+                  parent: animationController,
+                  curve: Curves.easeInOut,
+                ),
+              ),
+              child: child,
+            ));
   }
 }

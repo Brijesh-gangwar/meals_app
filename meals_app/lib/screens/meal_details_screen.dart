@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/providers/favorite_provider.dart';
@@ -39,15 +40,36 @@ class meal_details_screen extends ConsumerWidget {
                   ),
                 );
               },
-              icon: Icon(isfavorite ? Icons.star : Icons.star_border),
+              icon: AnimatedSwitcher(
+                duration: const Duration(
+                  milliseconds: 300,
+                ),
+                child: Icon(
+                  isfavorite ? Icons.star : Icons.star_border,
+                  key: ValueKey(isfavorite),
+                ),
+                transitionBuilder: (child, animation) {
+                  return RotationTransition(
+                    turns:
+                        Tween<double>(begin: 0.5, end: 1.0).animate(animation),
+                    child: child,
+                  );
+                },
+              ),
             ),
           ],
         ),
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Image(
-                image: NetworkImage(meal.imageUrl),
+              Hero(
+                tag: meal.id,
+                child: Image.network(
+                  meal.imageUrl,
+                  height: 300,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
               ),
               const Text(
                 "Indredinets",
