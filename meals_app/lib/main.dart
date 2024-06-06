@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:meals_app/screens/tabs.dart';
@@ -13,7 +14,7 @@ final ThemeData theme = ThemeData(
 );
 
 void main() {
-  runApp(const MainApp());
+  runApp(const ProviderScope(child: MainApp()));
 }
 
 class MainApp extends StatelessWidget {
@@ -22,8 +23,6 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: theme,
-        home: const tabs_screen());
+        debugShowCheckedModeBanner: false, theme: theme, home: tabs_screen());
   }
 }

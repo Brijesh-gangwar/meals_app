@@ -5,18 +5,22 @@ import '../models/meal.dart';
 import 'meal_details_screen.dart';
 
 class meals_screen extends StatelessWidget {
-  const meals_screen({super.key, this.title, required this.meals, required this.ontooglefavorite});
+  const meals_screen({
+    super.key,
+    this.title,
+    required this.meals,
+  });
 
   final String? title;
   final List<Meal> meals;
-    final void Function(Meal meal) ontooglefavorite;
-
 
   void select_meal(BuildContext context, Meal meal) {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => meal_details_screen(meal: meal,ontooglefavorite: ontooglefavorite,),
+          builder: (context) => meal_details_screen(
+            meal: meal,
+          ),
         ));
   }
 
